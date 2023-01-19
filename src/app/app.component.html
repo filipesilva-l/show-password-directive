@@ -30,6 +30,6 @@
 			<mat-label>Senha</mat-label>
 			<input matInput type="password" placeholder="Digite a senha" />
 		</mat-form-field>
-		<app-button-show-password [directive]="showPassword"></app-button-show-password>
+		<app-button-show-password [show]="showPassword.show$ | async"></app-button-show-password>
 	</div>
 </div>

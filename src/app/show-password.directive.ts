@@ -1,4 +1,5 @@
 import { Directive, ElementRef, AfterContentInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 const buttonStyles = {
 	position: 'absolute',
@@ -12,7 +13,7 @@ const buttonStyles = {
 	exportAs: 'appShowPassword',
 })
 export class ShowPasswordDirective implements AfterContentInit {
-	show: boolean = false;
+	show$ = new BehaviorSubject(false);
 
 	private el: HTMLElement;
 
@@ -39,10 +40,10 @@ export class ShowPasswordDirective implements AfterContentInit {
 
 	private assignClickHandler(button: HTMLButtonElement) {
 		button.onclick = () => {
-			this.show = !this.show;
+			this.show$.next(!this.show$.getValue());
 
 			const input: HTMLInputElement = this.getFirstChildByTag('input');
-			input.type = this.show ? 'text' : 'password';
+			input.type = this.show$.getValue() ? 'text' : 'password';
 		};
 	}
 
